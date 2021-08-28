@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 
+
 const routerOptions = [
   { path: "/about", component: "About" },
   { path: "/home", component: "Home" },
