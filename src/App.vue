@@ -5,7 +5,15 @@
       v-model="drawer"
       app
     >
-      <Profile />
+      <div v-if="user">
+        Logged in
+        <Profile />
+      </div>
+      <div v-else>
+        Not logged in
+        <Login />
+      </div>
+      
       <v-list shaped> <!--菜单-->
         <v-list>
           <!--Home-->
@@ -72,11 +80,18 @@
 
 <script>
   import Profile from './components/Profile.vue';
+  //import Register from './components/Register.vue';
+  import Login from './components/Login.vue';
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
+
   export default {
     components: {
-      Profile
+      Profile,
+      //Register,
+      Login
     },
     data: () => ({
+      user: null,
       Sidebarcards: ['Today', 'Yesterday'],
       drawer: null,
       links: [
@@ -94,8 +109,20 @@
           title: 'Algorithm - 2', 
           path: '/algorithm2',
         }
-      ]
+      ],
+      methods:{
+      }
     }),
+    created(){
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          this.user = user;
+        } else {
+          this.user = null;
+        }
+      });
+    }
   }
 </script>
 <style>
