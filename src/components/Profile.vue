@@ -2,6 +2,7 @@
   <v-card
     class="d-flex flex-column mx-auto"
     color="#DFE0F2"
+    height="100%"
     tile
     flat
   >     
