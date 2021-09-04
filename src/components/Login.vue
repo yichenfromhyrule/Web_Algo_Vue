@@ -1,10 +1,5 @@
 <template>
-  <div v-if="createNew">
-    Create New
-    <Register />
-  </div>
-  <div v-else>
-    Not need
+  
   <v-card
     class="d-flex flex-column mx-auto pt-2 pb-2"
     color="#DFE0F2"
@@ -24,6 +19,7 @@
             v-model="email"
             solo
             clearable
+            flat
           >
           </v-text-field>
         </v-row>
@@ -37,8 +33,22 @@
             v-model="password"
             solo
             clearable
+            flat
           >
           </v-text-field>
+        </v-row>
+        <v-row 
+          class = "d-flex justify-end register_tiny_text"
+          no-gutters
+        >
+        <router-link
+          style="text-decoration: none;"
+          class = "font-italic text-caption indigo--text text--lighten-1"
+          to="/hello" 
+        >
+          Forget the password
+        </router-link>
+        
         </v-row>
         <v-row 
           class = "d-flex justify-center register_input"
@@ -58,28 +68,27 @@
           class = "d-flex justify-center register_text"
           no-gutters
         >
-            or
-        </v-row>
-        <v-row 
-          class = "d-flex justify-center register_text font-italic"
-          no-gutters
-        >
-            create an account
+          <router-link
+            style="text-decoration: none;"
+            class = "text-subtitle-1 indigo--text text--lighten-1"
+            to="/sign-up" 
+          >
+            Create An Account
+          </router-link>
         </v-row>
       </v-container>
     </v-form>
     
   </v-card>  
-  </div>  
+   
 </template>
 
 <script>
 import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
-import Register from './Register.vue';
 export default {
     name: 'Register',
     components: {
-      Register,
+      
     },
     data() {
         return {
@@ -116,6 +125,9 @@ export default {
 .register_input{
     max-height: 55px !important;
     margin: 5px 10px !important;
+}
+.register_tiny_text{
+  margin: 0px 10px !important;
 }
 .no-padding{
   padding: 0 !important;

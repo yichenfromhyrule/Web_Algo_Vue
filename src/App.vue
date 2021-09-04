@@ -6,11 +6,9 @@
       app
     >
       <div v-if="user">
-        Logged in
         <Profile />
       </div>
       <div v-else>
-        Not logged in
         <Login />
       </div>
       
@@ -80,14 +78,12 @@
 
 <script>
   import Profile from './components/Profile.vue';
-  //import Register from './components/Register.vue';
   import Login from './components/Login.vue';
   import { getAuth, onAuthStateChanged } from "firebase/auth";
 
   export default {
     components: {
       Profile,
-      //Register,
       Login
     },
     data: () => ({

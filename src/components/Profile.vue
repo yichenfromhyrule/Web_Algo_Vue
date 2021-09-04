@@ -34,7 +34,7 @@
       class = "d-flex justify-center"
       no-gutters
     >
-      <h5 class="subtitle-1 black--text">{{uid}}</h5>
+      <h5 class="subtitle-1 black--text">{{displayName}}</h5>
     </v-row>
     <v-row 
       class = "d-flex justify-center"
@@ -50,9 +50,22 @@
   import { getAuth, signOut } from "firebase/auth";
   
   export default {
+    
     data: () => ({
+      user: null,
+      userEmail: null,
+      displayName: '',
       logoutIcon: mdiLogout
     }),
+    created(){
+      const auth = getAuth();
+      const user = auth.currentUser;
+      this.user = user;
+      user.providerData.forEach((profile) => {
+        this.userEmail = profile.email;
+        this.displayName = profile.displayName;
+      });
+    },
     methods:{
       signout(){
         const auth = getAuth();
