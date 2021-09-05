@@ -20,7 +20,7 @@
       </v-btn>
     </v-row>
     <v-row 
-      class = "d-flex justify-center"
+      class = "d-flex justify-center mb-2"
       no-gutters
     >
       <v-avatar size="80">
@@ -55,7 +55,7 @@
       user: null,
       userEmail: null,
       displayName: '',
-      logoutIcon: mdiLogout
+      logoutIcon: mdiLogout,
     }),
     created(){
       const auth = getAuth();

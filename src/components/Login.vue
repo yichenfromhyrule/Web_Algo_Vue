@@ -86,15 +86,11 @@
 <script>
 import { getAuth, signInWithEmailAndPassword} from "firebase/auth";
 export default {
-    name: 'Register',
-    components: {
-      
-    },
+    
     data() {
         return {
             email: '',
             password: '',
-            createNew: false,
         };
     },
     methods: {
@@ -114,10 +110,6 @@ export default {
             });
             
         },
-        switchToCreate(){
-          this.createNew = true;
-          console.log("createNew = ", this.createNew);
-        }
     },
 };
 </script>

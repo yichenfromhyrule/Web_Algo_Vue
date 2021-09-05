@@ -7,7 +7,7 @@
       <v-row>
         <v-col
           cols="12"
-          sm="6"
+          sm="5"
         >
           <v-row class = "mb-5">
             <h1>
@@ -21,14 +21,18 @@
           </v-row>
           
           <v-row class = "mb-2">
-            <v-text-field
+            
+              <v-text-field
               :rules = "rules"
               label="User Name"
               type="displayName"
               v-model="displayName"
               hide-details="auto"
+              prepend-icon="mdi-account"
               clearable
-            ></v-text-field>
+              ></v-text-field>
+            
+            
           </v-row>
 
           <v-row class = "mb-2">
@@ -38,6 +42,7 @@
               type="email"
               v-model="email"
               hide-details="auto"
+              prepend-icon="mdi-email"
               clearable
             ></v-text-field>
           </v-row>
@@ -49,6 +54,7 @@
               type="password"
               v-model="password"
               hide-details="auto"
+              prepend-icon="mdi-key"
               clearable
             ></v-text-field>
           </v-row>
@@ -109,27 +115,27 @@ export default {
               // Signed in
               const user = userCredential.user;
               console.log("Register Successfully", user);
-              
+              updateProfile(user, {
+                displayName: this.displayName
+              }).then(() => {
+                // Profile updated!
+                // ...
+                console.log("1updated user name!");
+      
+              }).catch((error) => {
+                // An error occurred
+                // ...
+                const errorMessage = error.message;
+                console.log("1An error occurred when update user information: ", errorMessage)
+              });
+              location.reload();
+              this.$router.push('/');
             })
             .catch((error) => {
               //const errorCode = error.code;
               const errorMessage = error.message;
               console.log(errorMessage)
             });
-          updateProfile(auth.currentUser, {
-            displayName: this.displayName
-          }).then(() => {
-            // Profile updated!
-            // ...
-            console.log("updated user name!");
-      
-          }).catch((error) => {
-            // An error occurred
-            // ...
-            const errorMessage = error.message;
-            console.log("An error occurred when update user information: ", errorMessage)
-          });
-          
         },
     },
 };

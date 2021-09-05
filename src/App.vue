@@ -2,6 +2,7 @@
   
   <v-app id="inspire">
     <v-navigation-drawer
+      
       v-model="drawer"
       app
     >
@@ -68,9 +69,9 @@
         class="py-8 px-6"
         fluid
       >
-        <v-content>
+        <v-main>
           <router-view></router-view>
-        </v-content>
+        </v-main>
       </v-container>
     </v-main>
   </v-app>
