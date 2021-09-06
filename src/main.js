@@ -5,6 +5,7 @@ import router from "./router";
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/database';
 
 
 firebase.initializeApp({
@@ -15,7 +16,7 @@ firebase.initializeApp({
   messagingSenderId: "640559063909",
   appId: "1:640559063909:web:1c11da38048d30ba80778c",
   measurementId: "G-Z1PJ9E65FE"
-})
+});
 
 
 Vue.config.productionTip = false
@@ -25,3 +26,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
+export default firebase.database();

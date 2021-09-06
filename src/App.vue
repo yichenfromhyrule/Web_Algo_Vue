@@ -50,6 +50,15 @@
             </v-list-item>
           </v-list-group>
           <!--Algorithm Done-->
+          <!--Message Board-->
+          <v-list-item
+            :to="'/message-board'"
+          >
+            <v-list-item-title>
+              Message Board
+            </v-list-item-title>
+          </v-list-item>
+          <!--MessageBoard Done-->
           <!--About-->
           <v-list-item
             :to="'/about'"
