@@ -10,7 +10,7 @@
                     <v-row>
                         <v-col cols="12">
                             <v-textarea
-                                v-model="message.description"
+                                v-model="message"
                                 color="teal"
                             >
                                 <template v-slot:label>
@@ -55,9 +55,7 @@
         rules: {
           
         },
-        message: {
-            description: ""
-        }
+        message: "",
       }
     },
     created(){
@@ -86,10 +84,8 @@
           const auth = getAuth();
           const user = auth.currentUser;
           const uid = user.uid;
-          var data = {
-              description: this.message.description
-          }
-          MessageDataService.create(data, user)
+          var message = this.message;
+          MessageDataService.create(message, user)
             .then(()=>{
                 console.log(uid, "Submit message successfully!");
             })

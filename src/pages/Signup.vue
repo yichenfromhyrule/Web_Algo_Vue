@@ -91,6 +91,8 @@
 
 <script>
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
+const db = getDatabase();
 
 export default {
     name: 'Register',
@@ -128,8 +130,16 @@ export default {
                 const errorMessage = error.message;
                 console.log("1An error occurred when update user information: ", errorMessage)
               });
-              location.reload();
-              this.$router.push('/');
+              // write in user database
+              set(ref(db, 'user/' + user.uid),{
+                email: user.email,
+                name: user.displayName,
+                role: 'Normal User'
+              }).catch(function(error){
+                console.error("Write in user/ database error: ", error);
+              });
+              //location.reload();
+              //this.$router.push('/');
             })
             .catch((error) => {
               //const errorCode = error.code;

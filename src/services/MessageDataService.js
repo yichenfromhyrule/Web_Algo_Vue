@@ -21,6 +21,7 @@ class MessageDataService {
         today = mm + '-' + dd + '-' + yyyy;
         set(ref(db, 'message/' + (size + 1)),{
             userName: user.displayName,
+            userId: user.uid,
             message: message,
             date: today,
         })
