@@ -5,22 +5,44 @@
         <v-btn
             color="success"
             class="mr-4"
-            @click="mounted"
+            
         >
             Refresh
         </v-btn>
+        <ul class="list-group">
+            <li
+                v-for="m in messages"
+                :key="m.content"
+            >
+                {{m.content}}
+            </li>
+        </ul>
+        
     </div>
 </template>
 
 <script>
 import MessageDataService from "../../services/MessageDataService";
+//import {ref} from 'vue';
 
 export default {
-    methods: {
-        mounted() {
-            const a = MessageDataService.getAll();
-            console.log(a);
+    
+    data(){
+        return{
+            messages: []
         }
-    }
+    },
+    methods: {
+        
+    },
+    
+    mounted() {
+        this.messages = MessageDataService.getAll();
+    },
+    
+    beforeDestroy() {
+        this.messages = MessageDataService.getAll();
+        
+    },
 }
 </script>

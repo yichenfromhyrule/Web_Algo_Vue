@@ -10,7 +10,7 @@
                     <v-row>
                         <v-col cols="12">
                             <v-textarea
-                                v-model="message"
+                                v-model="content"
                                 color="teal"
                             >
                                 <template v-slot:label>
@@ -84,8 +84,8 @@
           const auth = getAuth();
           const user = auth.currentUser;
           const uid = user.uid;
-          var message = this.message;
-          MessageDataService.create(message, user)
+          var content = this.content;
+          MessageDataService.create(content, user)
             .then(()=>{
                 console.log(uid, "Submit message successfully!");
             })
