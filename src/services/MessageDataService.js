@@ -14,20 +14,15 @@ class MessageDataService {
         console.log("numMessage = ", numMessage);
         const messageList = new Array();
         onValue(ref(db, 'message'), (snap)=>{
-            snap.forEach(snapshoot =>{
-                messageList.push(snapshoot.val());
-                console.log("getAll: ", snapshoot.val());
+            snap.forEach(snapshot =>{
+                messageList.push(snapshot.val());
+                console.log("getAll: ", snapshot.val());
             })
+        }, {
+            onlyOnce: true // 加上这句就不会重复出现了，但新的留言需要刷新
         })
+        console.log("messageList size is: ", messageList.length);
         return messageList;
-    }
-    getAllMessage(){
-        console.log("MessageDataService getAllMessage() Running......");
-        onValue(messagesRef, (snapshot) =>{
-            console.log("Snapshot: ", snapshot);
-            return snapshot;
-        })
-        return messagesRef;
     }
     create(content, user) {
         var today = new Date();

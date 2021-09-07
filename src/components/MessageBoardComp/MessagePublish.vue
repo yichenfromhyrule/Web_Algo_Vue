@@ -1,41 +1,32 @@
 <template>
-    <div>
-        <v-card flat>
-            <p>MessageBoard</p>
-            <v-form
-                ref="form"
-                @submit.prevent="submit"
+  <div>
+    <v-card class="mb-10" color="transparent" flat>
+      <v-form
+        ref="form"
+        @submit.prevent="submit"
+      >
+        <v-container fluid>
+          <v-row>
+            <v-textarea
+              solo
+              v-model="content"
+              label="What do you want to say?"
+              flat
             >
-                <v-container fluid>
-                    <v-row>
-                        <v-col cols="12">
-                            <v-textarea
-                                v-model="content"
-                                color="teal"
-                            >
-                                <template v-slot:label>
-                                    <div>
-                                        Message <small>(optional)</small>
-                                    </div>
-                                </template>
-                            </v-textarea>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-col cols="12">
-                            <v-btn
-                                color="success"
-                                class="mr-4"
-                                @click="saveMessage"
-                            >
-                                Submit
-                            </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-form>
-        </v-card>
-    </div>
+            </v-textarea>
+          </v-row>
+          <v-row class="d-flex justify-end">
+            <v-btn
+              color="success"
+              @click="saveMessage"
+            >
+              Post
+            </v-btn>
+          </v-row>
+        </v-container>
+      </v-form>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -46,14 +37,8 @@
   export default {
       
     data () {
-      const defaultForm = Object.freeze({
-        bio: '',
-      })
-
       return {
-        form: Object.assign({}, defaultForm),
-        rules: {
-          
+        rules: { 
         },
         message: "",
       }
@@ -72,14 +57,6 @@
     },
 
     methods: {
-      resetForm () {
-        this.form = Object.assign({}, this.defaultForm)
-        this.$refs.form.reset()
-      },
-      submit () {
-        this.snackbar = true
-        this.resetForm()
-      },
       saveMessage(){
           const auth = getAuth();
           const user = auth.currentUser;
