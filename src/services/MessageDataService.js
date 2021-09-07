@@ -1,5 +1,6 @@
 import { getDatabase, ref, set, onValue} from "firebase/database";
 
+
 const db = getDatabase();
 const messagesRef = ref(db, 'message/');
 var numMessage = 0
@@ -12,14 +13,21 @@ class MessageDataService {
         console.log("MessageDataService getAll() Running......")
         console.log("numMessage = ", numMessage);
         const messageList = new Array();
-        for (let i = 1; i < numMessage + 1; i++) {
-            onValue(ref(db, 'message/' + i), (snapshot) =>{
-                var message_detail = snapshot.val();
-                messageList.push(message_detail);
-                console.log("Services:", message_detail);
+        onValue(ref(db, 'message'), (snap)=>{
+            snap.forEach(snapshoot =>{
+                messageList.push(snapshoot.val());
+                console.log("getAll: ", snapshoot.val());
             })
-          } 
+        })
         return messageList;
+    }
+    getAllMessage(){
+        console.log("MessageDataService getAllMessage() Running......");
+        onValue(messagesRef, (snapshot) =>{
+            console.log("Snapshot: ", snapshot);
+            return snapshot;
+        })
+        return messagesRef;
     }
     create(content, user) {
         var today = new Date();
@@ -34,6 +42,9 @@ class MessageDataService {
             content: content,
             date: today,
         })
+        db.ref('messages/' + today).set({
+            test: "Yichen Test"
+        });
     }
 
 }

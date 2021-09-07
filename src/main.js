@@ -26,4 +26,5 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-export default firebase.database();
+var database = firebase.database();
+export default database;

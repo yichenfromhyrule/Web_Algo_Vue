@@ -9,40 +9,43 @@
         >
             Refresh
         </v-btn>
-        <ul class="list-group">
+         <ul class="list-group">
             <li
-                v-for="m in messages"
+                v-for="m in allM"
                 :key="m.content"
             >
-                {{m.content}}
+                {{m.date}}
             </li>
         </ul>
+        <p>haha</p>
         
     </div>
 </template>
 
 <script>
 import MessageDataService from "../../services/MessageDataService";
-//import {ref} from 'vue';
+//import { onValue} from "firebase/database";
 
 export default {
     
     data(){
         return{
-            messages: []
-        }
+            messages: [],
+            currentIndex: 0,
+            allM: [],
+        };
     },
     methods: {
         
     },
-    
-    mounted() {
-        this.messages = MessageDataService.getAll();
+    created(){
+        console.log("MessageDisplay created() Loading ......");
+        const allM = MessageDataService.getAll();
+        this.allM = allM;
     },
     
-    beforeDestroy() {
-        this.messages = MessageDataService.getAll();
-        
-    },
+
+    
+    
 }
 </script>
