@@ -36,10 +36,9 @@ class MessageDataService {
             userId: user.uid,
             content: content,
             date: today,
-        })
-        db.ref('messages/' + today).set({
-            test: "Yichen Test"
         });
+        window.location.reload();
+        console.log("MessageDataService create() Finished......");
     }
 
 }

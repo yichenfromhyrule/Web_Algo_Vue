@@ -75,7 +75,7 @@
 
     <v-main style="padding: 0px;">
       <v-container
-        class="py-8 px-6"
+        class="py-6 px-4"
         fluid
       >
         <v-main>
