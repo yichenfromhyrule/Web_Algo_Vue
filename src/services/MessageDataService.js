@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, onValue} from "firebase/database";
+import { getDatabase, ref, set, onValue, remove} from "firebase/database";
 
 
 const db = getDatabase();
@@ -36,9 +36,17 @@ class MessageDataService {
             userId: user.uid,
             content: content,
             date: today,
+            messageId: numMessage+1,
         });
         window.location.reload();
         console.log("MessageDataService create() Finished......");
+    }
+    deleteOneMessage(messageId){
+        console.log("MessageDataService delete() Start......");
+        remove(ref(db, 'message/' + messageId));
+        window.location.reload();
+        console.log("MessageDataService delete() Finished......");
+
     }
 
 }

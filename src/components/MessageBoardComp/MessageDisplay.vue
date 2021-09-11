@@ -18,47 +18,59 @@
                             class = "py-2 px-4"
                             outlined
                             flat
-                            no-gutters
                         >  
                             <v-row no-gutters>
                                 <v-col
-                                    cols="12"
-                                    sm="7"
-                                    class="d-flex justify-start text-caption align-items-center"
+                                    class="d-flex justify-start text-subtitle-2 align-items-center"
                                 >
-                                <div class="align-items-center">
-                                    {{message.userName}} - {{message.date}}
-                                </div>
-                                
-                                </v-col>
-                                <v-col
-                                    cols="12"
-                                    sm="5"
-                                    class="d-flex justify-end text-caption"
-                                >
-                                    <v-btn
-                                        tile
-                                        color="black"
-                                        icon
-                                        
-                                    >
-                                        <v-icon size="15">{{ replyIcon }}</v-icon>
-                                    </v-btn>
-                                    <v-btn
-                                        tile
-                                        color="black"
-                                        icon
-                                        
-                                    >
-                                        <v-icon size="20">{{ deleteIcon }}</v-icon>
-                                    </v-btn>
+                                     <div v-if="message.userId === currentUserId">
+                                         You - {{message.date}}
+                                     </div>
+                                     <div v-else>
+                                         {{message.userName}} - {{message.date}}
+                                     </div>
+                                    
                                 </v-col>
                             </v-row>
                             <v-row
-                                no-gutters
+                               no-gutters 
                             >
                                 <v-col>
                                     {{message.content}}
+                                </v-col>
+                            </v-row>   
+                            <v-row
+                                no-gutters
+                            >
+                                <v-col class="d-flex justify-end text-caption">
+                                    
+                                        <v-btn
+                                            tile
+                                            color="#E8BCD5"
+                                            class="white--text"
+                                            small
+                                            @click="deleteMessage(message.messageId)"
+                                        >
+                                            Delete
+                                            <v-icon size="20">
+                                                {{ deleteIcon }}
+                                            </v-icon>
+                                        </v-btn>
+                                    
+                                    <div>
+                                        <v-btn
+                                            tile
+                                            color="#5756B3"
+                                            class="mx-5 white--text"
+                                            small
+                                            
+                                        >
+                                            Reply
+                                            <v-icon size="15">
+                                                {{ replyIcon }}
+                                            </v-icon>
+                                        </v-btn>
+                                    </div> 
                                 </v-col>
                             </v-row>   
                             
@@ -87,28 +99,39 @@
 <script>
 import MessageDataService from "../../services/MessageDataService";
 import { mdiDeleteForever , mdiMessageReplyText } from '@mdi/js';
-
+import { getAuth } from "firebase/auth";
 export default {
     
     data(){
         return{
             messages: [],
             currentIndex: 0,
-            allM: [],
+            currentUserId: null,
             deleteIcon: mdiDeleteForever ,
             replyIcon: mdiMessageReplyText,
         };
     },
     methods: {
+        deleteMessage(messageId){
+            MessageDataService.deleteOneMessage(messageId);
+        }
         
     },
+    created(){
+        const auth = getAuth();
+        const user = auth.currentUser;
+        this.currentUserId = user.uid;
+    },
     mounted(){
+        
         this.messages = [];
         console.log("MessageDisplay created() Loading ......");
-        const allM = MessageDataService.getAll();
-        console.log("allM: ", allM);
-        this.allM = allM;
-        this.messages = allM;
+        const allMessages = MessageDataService.getAll();
+        console.log("allM: ", allMessages);
+        this.messages = allMessages;
+        const auth = getAuth();
+        const user = auth.currentUser;
+        this.currentUserId = user.uid;
     },
     
 
