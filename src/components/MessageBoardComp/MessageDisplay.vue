@@ -43,7 +43,7 @@
                                 no-gutters
                             >
                                 <v-col class="d-flex justify-end text-caption">
-                                    
+                                    <div v-if="message.userId === currentUserId">
                                         <v-btn
                                             tile
                                             color="#E8BCD5"
@@ -56,12 +56,16 @@
                                                 {{ deleteIcon }}
                                             </v-icon>
                                         </v-btn>
-                                    
+                                    </div>
+                                    <div v-else>
+                                        
+                                    </div>
+                                        
                                     <div>
                                         <v-btn
                                             tile
                                             color="#5756B3"
-                                            class="mx-5 white--text"
+                                            class="ml-5 white--text"
                                             small
                                             
                                         >
@@ -117,21 +121,20 @@ export default {
         }
         
     },
-    created(){
-        const auth = getAuth();
-        const user = auth.currentUser;
-        this.currentUserId = user.uid;
-    },
     mounted(){
         
         this.messages = [];
-        console.log("MessageDisplay created() Loading ......");
+        console.log("MessageDisplay mounted() Loading ......");
         const allMessages = MessageDataService.getAll();
         console.log("allM: ", allMessages);
         this.messages = allMessages;
+    },
+    updated(){
+        console.log("MessageDisplay updated() Loading ......");
         const auth = getAuth();
         const user = auth.currentUser;
         this.currentUserId = user.uid;
+        
     },
     
 
